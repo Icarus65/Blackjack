@@ -1,105 +1,14 @@
-﻿using System;
+﻿using Blackjack;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Rocket_Landing
+namespace BlackJack
 {
     internal class BlackJack
     {
-        public enum Suit
-        {
-            Hearts,
-            Diamonds,
-            Clubs,
-            Spades
-        }
-        public enum Rank
-        {
-            Two = 2,
-            Three,
-            Four,
-            Five,
-            Six,
-            Seven,
-            Eight,
-            Nine,
-            Ten,
-            Jack = 10,
-            Queen = 10,
-            King = 10,
-            Ace = 11
-        }
-        public class Card
-        {
-            public Suit Suit { get; set; }
-            public Rank Rank { get; set; }
-            public Card(Suit suit, Rank rank)
-            {
-                Suit = suit;
-                Rank = rank;
-            }
-            public override string ToString()
-            {
-                return $"{Rank} of {Suit}";
-            }
-        }
-        public class Deck
-        {
-            private List<Card> cards;
-            private Random random = new Random();
-            public Deck()
-            {
-                cards = new List<Card>();
-                foreach (Suit suit in Enum.GetValues(typeof(Suit)))
-                {
-                    foreach (Rank rank in Enum.GetValues(typeof(Rank)))
-                    {
-                        cards.Add(new Card(suit, rank));
-                    }
-                }
-            }
-            public void Shuffle()
-            {
-                cards = cards.OrderBy(c => random.Next()).ToList();
-            }
-            public Card DealCard()
-            {
-                if (cards.Count == 0)
-                    throw new InvalidOperationException("No cards left in the deck.");
-                Card card = cards[0];
-                cards.RemoveAt(0);
-                return card;
-            }
-        }
-        public class Hand
-        {
-            private List<Card> cards;
-            public Hand()
-            {
-                cards = new List<Card>();
-            }
-            public void AddCard(Card card)
-            {
-                cards.Add(card);
-            }
-            public int GetValue()
-            {
-                int value = cards.Sum(c => (int)c.Rank);
-                int aceCount = cards.Count(c => c.Rank == Rank.Ace);
-                while (value > 21 && aceCount > 0)
-                {
-                    value -= 10;
-                    aceCount--;
-                }
-                return value;
-            }
-            public override string ToString()
-            {
-                return string.Join(", ", cards);
-            }
-        }
         public enum GameResult
         {
             PlayerWins,
