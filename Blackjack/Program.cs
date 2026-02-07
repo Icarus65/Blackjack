@@ -4,8 +4,11 @@
     {
         public static void Main(string[] args)
         {
-            BlackJack game = new BlackJack();
+
+            BlackJackGame game = new BlackJackGame();
             game.StartGame();
+
+
         }
     }
 }
